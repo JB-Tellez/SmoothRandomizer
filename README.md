@@ -7,12 +7,15 @@ Cannot prevent repeats if input array length < 2n. So live with that or make arr
 ```
 var things = ['fork','couch','potato','grass','oxygen','burrito'];
       
-var sr = new SmoothRandomizer(things);
+var smooth = new SmoothRandomizer(things);
 
 var amount = 3;
-      
-for(var i = 0; i < 1000; i++) {
-  sr.pickSome(amount);
+
+var randomSubset = [];
+
+for(var i = 0; i < 100; i++) {
+  randomSubset = smooth.pickSome(amount);
+  console.log(randomSubset);
 }      
 ```
 
