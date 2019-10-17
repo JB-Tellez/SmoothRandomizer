@@ -8,10 +8,12 @@ Cannot prevent repeats if input array length < 2n. So live with that or make arr
 var things = ['fork','couch','potato','grass','oxygen','burrito'];
       
 var sr = new SmoothRandomizer(things);
+
+var amount = 3;
       
 for(var i = 0; i < 1000; i++) {
-  sr.pickSome(3);
+  sr.pickSome(amount);
 }      
 ```
 
-TIP: Make length of things array shorter than argument to pickSome to force repeats
+TIP: Make length of `things` shorter than `2 * amount` to force repeats
