@@ -12,55 +12,55 @@ function SmoothRandomizer(items) {
   this.previousSet = [];
 }
 
-SmoothRandomizer.prototype.pickSome = function(num = 2) {
+SmoothRandomizer.prototype.pickSome = function (num = 2) {
 
   var newSet = [];
 
   var forbidden = this.previousSet.slice();
 
-  for(var i = 0; i < num; i++) {
+  for (var i = 0; i < num; i++) {
     var newItem = this.pickSafely(forbidden);
     newSet.push(newItem);
     forbidden.push(newItem);
   }
 
   this.previousSet = newSet;
-  
+
   return newSet;
-}
+};
 
-SmoothRandomizer.prototype.pickSafely = function(forbidden) {
+SmoothRandomizer.prototype.pickSafely = function (forbidden) {
 
-  if(this.workingItems.length < 1) {
+  if (this.workingItems.length < 1) {
     this.workingItems = this.shuffle(this.masterItems.slice());
   }
 
   var nextItem = this.workingItems.pop();
 
-  if(this.workingItems.length < 1) {
+  if (this.workingItems.length < 1) {
     this.workingItems = this.shuffle(this.masterItems.slice());
   }
 
   var failCtr = 0;
- 
-  while(forbidden.includes(nextItem)) {
-    
+
+  while (forbidden.includes(nextItem)) {
+
     this.workingItems.unshift(nextItem);
-    
-    nextItem = this.workingItems.pop(); 
-    
+
+    nextItem = this.workingItems.pop();
+
     failCtr++;
 
-    if(failCtr > this.workingItems.length) { 
-      
+    if (failCtr > this.workingItems.length) {
+
       console.warn('WARNING: Cannot prevent repeats if input array length < 2n. So live with that or make array at least 2n long');
 
       break;
     }
-  } 
+  }
 
   return nextItem;
-}
+};
 
 /**
  * Randomly shuffle an array
@@ -70,21 +70,20 @@ SmoothRandomizer.prototype.pickSafely = function(forbidden) {
  */
 SmoothRandomizer.prototype.shuffle = function (array) {
 
-	var currentIndex = array.length;
-	var temporaryValue, randomIndex;
+  var currentIndex = array.length;
+  var temporaryValue, randomIndex;
 
-	// While there remain elements to shuffle...
-	while (0 !== currentIndex) {
-		// Pick a remaining element...
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex -= 1;
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
 
-		// And swap it with the current element.
-		temporaryValue = array[currentIndex];
-		array[currentIndex] = array[randomIndex];
-		array[randomIndex] = temporaryValue;
-	}
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 
-	return array;
-
+  return array;
 };
